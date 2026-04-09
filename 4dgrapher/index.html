@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>4d grapher</title>
+
+  <style>
+    :root {
+      --bg-color: #111;
+      --panel-bg: rgba(30, 30, 30, 0.95);
+      --text-color: #eee;
+      --subtle-text: #aaa;
+      --accent: #4dabf7;
+      --error-color: #f25c54;
+      --input-bg: #222;
+      --input-border: #555;
+    }
+
+    body {
+      margin: 0;
+      overflow: hidden;
+      background: var(--bg-color);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
+        Roboto, Helvetica, Arial, sans-serif;
+      color: var(--text-color);
+    }
+
+    #ui-container {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      width: 320px;
+      max-height: 90vh;
+      overflow-y: auto;
+      background: var(--panel-bg);
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.7);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 1.2rem;
+    }
+
+    .input-group {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    label {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--subtle-text);
+      display: flex;
+      justify-content: space-between;
+    }
+
+    input[type="text"] {
+      padding: 10px;
+      border: 2px solid var(--input-border);
+      border-radius: 4px;
+      font-family: "Courier New", monospace;
+      background: var(--input-bg);
+      color: var(--text-color);
+    }
+
+    input[type="text"].error {
+      border-color: var(--error-color);
+      background: #3b1e1c;
+      color: var(--error-color);
+    }
+
+    .slider-row {
+      display: grid;
+      grid-template-columns: 30px 1fr 40px;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .slider-label { font-weight: bold; }
+    .x-axis { color: #ff6b6b; }
+    .y-axis { color: #51cf66; }
+    .z-axis { color: #339af0; }
+    .w-axis { color: #845ef7; }
+
+    .val-display {
+      font-family: monospace;
+      font-size: 0.8rem;
+      text-align: right;
+    }
+
+    select {
+      padding: 8px;
+      border-radius: 4px;
+      background: var(--input-bg);
+      border: 1px solid var(--input-border);
+      color: var(--text-color);
+    }
+
+    #error-msg {
+      color: var(--error-color);
+      font-size: 0.8rem;
+      min-height: 1.2em;
+    }
+
+    hr {
+      border: 0;
+      border-top: 1px solid #444;
+      margin: 10px 0;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="ui-container">
+
+    <div>
+      <h1>4d grapher</h1>
+      <div style="font-size:0.8rem;">f(x, y, z, w) = 0</div>
+    </div>
+
+    <div class="input-group">
+      <select id="preset-select">
+        <option value="" disabled selected>load a preset...</option>
+        <option value="x^2 + y^2 + z^2 + w^2 - 100">hypersphere</option>
+        <option value="max(abs(x), abs(y), abs(z), abs(w)) - 10">tesseract</option>
+        <option value="(x^2 + y^2 + z^2 + w^2)^2 - 200*(x^2+y^2) + 200*(z^2+w^2)">
+          clifford torus
+        </option>
+        <option value="cos(x) + cos(y) + cos(z) + cos(w)">4d gyroid</option>
+        <option value="x*x - y*y - z*z - w*w - 10">hyperboloid</option>
+      </select>
+    </div>
+
+    <div class="input-group">
+      <label>equation</label>
+      <input id="func-input" type="text"
+        value="x^2 + y^2 + z^2 + w^2 - 100" spellcheck="false">
+      <div id="error-msg"></div>
+    </div>
+
+    <hr>
+
+    <div class="input-group">
+      <label>iso level</label>
+      <div class="slider-row">
+        <span class="slider-label">c</span>
+        <input id="iso" type="range" min="-50" max="50" step="0.1" value="0">
+        <span class="val-display" id="val-iso">0</span>
+      </div>
+    </div>
+
+    <div class="input-group">
+      <label>4d slice</label>
+      <div class="slider-row">
+        <span class="slider-label w-axis">w</span>
+        <input id="w-pos" type="range" min="-20" max="20" step="0.1" value="0">
+        <span class="val-display" id="val-w-pos">0</span>
+      </div>
+    </div>
+
+    <div class="input-group">
+      <label>4d rotations</label>
+
+      <div class="slider-row">
+        <span class="slider-label x-axis">xw</span>
+        <input id="xw" type="range" min="0" max="6.28" step="0.01" value="0">
+        <span class="val-display" id="val-xw">0</span>
+      </div>
+
+      <div class="slider-row">
+        <span class="slider-label y-axis">yw</span>
+        <input id="yw" type="range" min="0" max="6.28" step="0.01" value="0">
+        <span class="val-display" id="val-yw">0</span>
+      </div>
+
+      <div class="slider-row">
+        <span class="slider-label z-axis">zw</span>
+        <input id="zw" type="range" min="0" max="6.28" step="0.01" value="0">
+        <span class="val-display" id="val-zw">0</span>
+      </div>
+    </div>
+
+    <div class="input-group">
+      <label>view range</label>
+      <div class="slider-row">
+        <span style="font-family:monospace;color:var(--accent);">+/-</span>
+        <span class="val-display" id="val-range" style="text-align:left;">20.0</span>
+      </div>
+    </div>
+
+  </div>
+
+  <script type="module" src="/main.js"></script>
+</body>
+</html>
