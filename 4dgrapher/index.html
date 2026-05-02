@@ -145,12 +145,12 @@
       <select id="preset-select">
         <option value="" disabled selected>load a preset...</option>
         <option value="x^2 + y^2 + z^2 + w^2 - 100">hypersphere</option>
-        <option value="max(abs(x), abs(y), abs(z), abs(w)) - 10">tesseract</option>
+        <option value="max(|x|, |y|, |z|, |w|) - 10">tesseract</option>
         <option value="(x^2 + y^2 + z^2 + w^2)^2 - 200*(x^2+y^2) + 200*(z^2+w^2)">
           clifford torus
         </option>
         <option value="cos(x) + cos(y) + cos(z) + cos(w)">4d gyroid</option>
-        <option value="x*x - y*y - z*z - w*w - 10">hyperboloid</option>
+        <option value="x^2 - y^2 - z^2 - w^2 - 10">hyperboloid</option>
       </select>
     </div>
 
