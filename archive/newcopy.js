@@ -34,7 +34,7 @@ function generateField() {
   return field;
 }
 
-// marching cubes — turns the scalar field into triangles
+// marching cubes, turns the scalar field into triangles
 function marchingCubes(field) {
   const verts = [];
   const dx = (xmax - xmin) / (nx - 1);
@@ -70,7 +70,7 @@ function marchingCubes(field) {
           ]);
         }
 
-    // cube index — one bit per corner that's inside the surface
+    // cube index, one bit per corner that's inside the surface
     let idx = 0;
     for (let n = 0; n < 8; n++) if (cube[n] < iso) idx |= 1 << n;
     if (edgeTable[idx] === 0) continue;

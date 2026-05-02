@@ -93,7 +93,7 @@ function makeFn(s) {
       c = c.replace(new RegExp(`\\b${n}\\b`, "g"), `Math.${n}`)
     })
     const f = new Function("x", "y", "z", "w", `return ${c}`)
-    f(0, 0, 0, 0) // test call — catches bad syntax early
+    f(0, 0, 0, 0) // test call, catches bad syntax early
     ui.inp.classList.remove("error")
     ui.err.innerText = ""
     return f
