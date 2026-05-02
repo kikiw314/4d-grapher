@@ -43,7 +43,10 @@ const mat = new THREE.MeshStandardMaterial({
   side: THREE.DoubleSide
 })
 
-const mc = new MarchingCubes(cfg.res, mat, true, true)
+// 5th arg is the triangle buffer cap. default is 10000, which complex
+// surfaces blow past easily. overflow writes silently drop, so half
+// the shape goes missing. 100000 covers anything we'd realistically draw.
+const mc = new MarchingCubes(cfg.res, mat, true, true, 100000)
 mc.scale.set(cfg.box, cfg.box, cfg.box)
 scn.add(mc)
 
@@ -73,8 +76,13 @@ const ui = {
     xw: document.getElementById("val-xw"),
     yw: document.getElementById("val-yw"),
     zw: document.getElementById("val-zw")
-  }
+  },
+  colSurf: document.getElementById("col-surface"),
+  colBg: document.getElementById("col-bg")
 }
+
+ui.colSurf.addEventListener("input", e => mat.color.set(e.target.value))
+ui.colBg.addEventListener("input", e => scn.background.set(e.target.value))
 
 // compile the user's string into an actual function
 // handles ^ exponents and injects Math.* for things like sin/cos

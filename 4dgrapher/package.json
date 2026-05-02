@@ -1,8 +1,18 @@
 {
   "name": "4dgrapher",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.1.0",
   "type": "module",
+  "description": "an implicit 4D function grapher in the browser",
+  "author": "kiki w",
+  "license": "MIT",
+  "homepage": "https://4dgrapher.netlify.app/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kikiw314/4d-grapher.git"
+  },
+  "keywords": ["4d", "marching-cubes", "threejs", "webgl", "math", "visualization"],
+  "main": "main.js",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -13,10 +23,5 @@
   },
   "dependencies": {
     "three": "^0.182.0"
-  },
-  "main": "main.js",
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": ""
+  }
 }

@@ -62,6 +62,8 @@ This is what allows the surface to appear smooth rather than aligned to the grid
 
 **Day 10** — UI polish, added a bounding box (a lot harder than expected).
 
+the actual code from each day (the broken-mesh attempts, the from-scratch marching cubes, etc) lives in [`archive/`](archive/) if you want to see how janky it was getting there.
+
 ---
 
 ## stack
@@ -69,3 +71,18 @@ This is what allows the surface to appear smooth rather than aligned to the grid
 - [three.js](https://threejs.org/) — rendering + built-in marching cubes
 - Vite — dev/build
 - Netlify — deploy
+
+## running locally
+
+```bash
+git clone https://github.com/kikiw314/4d-grapher.git
+cd 4d-grapher/4dgrapher
+npm install
+npm run dev
+```
+
+opens at `localhost:5173`. type an equation in the input or grab a preset from the dropdown. scroll on the viewport to zoom (it scales the view range, not the camera distance). drag to orbit. the w slider sweeps through 4d slices, the xw/yw/zw sliders rotate in the planes that touch the 4th axis.
+
+## license
+
+MIT. do whatever you want with it.
