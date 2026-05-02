@@ -75,7 +75,7 @@ the actual code from each day (the broken-mesh attempts, the from-scratch marchi
 ## running locally
 
 ```bash
-git clone https://github.com/kikiw314/4d-grapher.git
+git clone https://github.com/kpwdv0/4d-grapher.git
 cd 4d-grapher/4dgrapher
 npm install
 npm run dev

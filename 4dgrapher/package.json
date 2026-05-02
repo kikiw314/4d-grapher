@@ -9,7 +9,7 @@
   "homepage": "https://4dgrapher.netlify.app/",
   "repository": {
     "type": "git",
-    "url": "https://github.com/kikiw314/4d-grapher.git"
+    "url": "https://github.com/kpwdv0/4d-grapher.git"
   },
   "keywords": ["4d", "marching-cubes", "threejs", "webgl", "math", "visualization"],
   "main": "main.js",
